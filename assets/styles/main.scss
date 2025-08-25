@@ -1,0 +1,24 @@
+@use "./colors.scss" as *;
+
+// Подключение шрифта Google — можно оставлять через @import url
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+.anton-regular {
+  font-family: "Anton", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+html {
+  scroll-behavior: smooth;
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+}
