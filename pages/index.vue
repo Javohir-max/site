@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import user from '../assets/images/home-user.png'
 </script>
 <template>
@@ -8,7 +8,9 @@ import user from '../assets/images/home-user.png'
                 <h2 class="anton-regular">Hello <Icon name="fluent-emoji-flat:hand-with-fingers-splayed-light"/>, Welcome to my website</h2>
                 <h2 class="anton-regular">My name is Javohir</h2>
                 <p>I am a Frontend developer</p>
-                <CompButton style="background-color: dodgerblue;">About Me</CompButton>
+                <NuxtLink to="/about">
+                    <CompButton label="About me" style="background-color: dodgerblue;"/>
+                </NuxtLink>
             </div>
             <div class="right">
                 <CompImage :src="user"/>

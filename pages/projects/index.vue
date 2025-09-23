@@ -1,7 +1,19 @@
 <script setup lang="ts">
 import Gallery from '../../assets/images/Gallery.png'
+import Auth from '../../assets/images/auth.jpg'
+import Profile from '../../assets/images/profile.jpg'
+import Edit from '../../assets/images/edit.jpeg'
+import Posts from '../../assets/images/posts.png'
+import Email from '../../assets/images/email.jpg'
+import Document from '../../assets/images/document.jpg'
 const projects = [
-    {name: 'Gallery', src: Gallery, page: '/gallery'}
+    {name: 'Gallery', src: Gallery, page: '/gallery'},
+    {name: 'Authorization', src: Auth, page: '/auth'},
+    {name: 'Profile', src: Profile, page: '/profile'},
+    {name: 'Edit Profile', src: Edit, page: '/edit'},
+    {name: 'Posts', src: Posts, page: '/posts'},
+    {name: 'Email message', src: Email, page: '/email'},
+    {name: 'Documents', src: Document, page: '/document'},
 ]
 </script>
 <template>

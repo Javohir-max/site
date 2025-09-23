@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { computed, ref } from 'vue';
 
 const props = defineProps({
@@ -94,7 +94,7 @@ const buttons = ref([
             <button 
                 type="button" 
                 v-for="item in buttons" 
-                :key="item.length" 
+                :key="item.icon" 
                 class="btn" 
                 @click="item.click()"
             >

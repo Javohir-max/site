@@ -1,9 +1,9 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue';
 const props = defineProps({
     label: String,
     type: {
-        type: String,
+        type: String as () => 'button' | 'submit' | 'reset',
         default: 'button'
     },
     icon: String,
@@ -11,6 +11,10 @@ const props = defineProps({
     rounded: Boolean,
     disabled: Boolean,
     extraClass: String,
+    sizeIcon: {
+        type: String,
+        default: '16px'
+    },
     style: [String, Object],
 })
 const computedIconPos = computed(() => {
@@ -41,13 +45,12 @@ const computedPadding = computed(() => {
             borderRadius: computedRounded,
             gap: computedGap,
             padding: computedPadding
-        }]" 
-        @click="btn" 
+        }]"  
         :type="type"
         :disabled="disabled" 
         :class="extraClass"
     >
-        <Icon v-if="icon" :name="icon"/>
+        <Icon v-if="icon" :name="icon" :style="{fontSize: sizeIcon}"/>
         <span>
             {{ label }}
             <slot /> 

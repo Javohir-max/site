@@ -4,7 +4,6 @@ import MyHobby from '../assets/images/my-hobby.png'
 </script>
 <template>
     <div>
-        About
         <section class="about">
             <div class="box">
                 <h2>About Me</h2>

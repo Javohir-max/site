@@ -58,7 +58,7 @@ onMounted(() => {
                         preview
                     />
                     <h2>{{ item.name }}</h2>
-                    <CompButton class="btn-grad" label="Скачать" @click="download(item.url, item.name)"/>
+                    <CompButton class="btn-grad" label="Скачать" @click="(item.url, item.name)"/>
                 </div>
             </div>
             <div class="pagination">

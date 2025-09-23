@@ -1,4 +1,4 @@
-<script setup>  
+<script setup lang="ts">  
 import { ref, computed, onMounted, watchEffect } from 'vue';
 import { Icon } from '@iconify/vue';
 const props = defineProps({
