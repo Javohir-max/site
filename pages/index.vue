@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import user from '../assets/images/home-user.png'
 </script>
 <template>

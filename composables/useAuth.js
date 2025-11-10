@@ -38,7 +38,7 @@ export function useAuth() {
   const started = async () => {
     try {
       const { data } = await API.get("/start")
-      if (data.status) return true
+      if (data.status) return true          
     } catch (error) {
       console.log(error)
       return false

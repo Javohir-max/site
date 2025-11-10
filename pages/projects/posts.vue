@@ -1,6 +1,7 @@
 <script setup>
 import AddImg from '../../assets/images/add-image.jpg'
-const { posts, getPosts, createPost } = usePosts()
+const { posts, getPosts, createPost, deletePosts, } = usePosts()
+const { notification } = useFunc()
 const newPosts = ref({
     title: '',
     image: null,
@@ -25,23 +26,24 @@ const handleSubmit = async () => {
             data.append(key, newPosts.value[key])
         }
     })
-    try {
-        const res = await createPost(data)
-        alert(res ? 'Пост создан!' : 'Ошибка при создании поста')
-        newPosts.value.title = ''
-        newPosts.value.image = null
-        previewImage.value = null
-        await getPosts() // обновим список постов
-    } catch (err) {
-        console.error(err)
-        alert('Ошибка при создании поста')
-    }
+    const res = await createPost(data)
+    notification(res.status, res.msg)
+    newPosts.value.title = ''
+    newPosts.value.image = null
+    previewImage.value = null
+    await getPosts() // обновим список постов
+}
+
+const deleteAll = async () => {
+    const data = await deletePosts()
+    notification(data.status, data.msg)
+    await getPosts()
 }
 
 onMounted(async () => {
     const res = await getPosts()
-    if (!res) {
-        alert('Ошибка при загрузке постов, вы не авторизованы!')
+    if (res.status === "error") {
+        notification(res.status, res.msg)
         navigateTo('/projects/auth')
     }
 })
@@ -66,16 +68,44 @@ onMounted(async () => {
             />
         </form>
         <!-- <pre>{{ posts }}</pre> -->
+        <CompButton label="Delete All" class="!my-4" @click="deleteAll"/>
         <div class="posts__container">
-            <div class="post" v-for="(item, index) in posts" :key="index">
-                <CompImage :src="item.image" width="100%"/>
+            <Post 
+                v-for="item in posts" 
+                :key="item._id"
+                :post="item"
+            />
+            <!-- <div class="post" v-for="item in posts" :key="item._id">
+                <CompImage 
+                    v-if="item.image" 
+                    :src="item.image" 
+                    width="100%"
+                />
+                <CompButton 
+                    :label="String(item.likes.length)"
+                    :icon="(item.likes.includes(user._id)) ? 'icon-park-solid:like' : 'icon-park-twotone:like'" 
+                    class="w-[70px]"
+                    size-icon="24px"
+                    icon-pos="right"
+                />
+                <NuxtLink :to="`/projects/comment/${item._id}`">
+                    comment
+                </NuxtLink>
                 <h2 class="post__title">{{ item.title }}</h2>
                 <p class="post__date">{{ item.createdAt }}</p>
                 <div class="post__author">
-                    <CompImage :src="item.userId.avatar" width="40px" height="40px" style="border-radius: 50%; overflow: hidden;"/>
-                    <span class="post__author-name">{{ item.userId.name }}</span>
+                    <CompImage 
+                        v-if="item.userId?.avatar" 
+                        :src="item.userId?.avatar" 
+                        width="40px" 
+                        height="40px" 
+                        style="border-radius: 50%; 
+                        overflow: hidden;"
+                    />
+                    <span class="post__author-name">{{ item.userId?.name }}</span>
                 </div>
-            </div>
+                <CompButton label="Delete" @click="deleteP(item._id)"/>
+            </div> -->
         </div>
     </div>
 </template>

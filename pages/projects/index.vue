@@ -6,6 +6,7 @@ import Edit from '../../assets/images/edit.jpeg'
 import Posts from '../../assets/images/posts.png'
 import Email from '../../assets/images/email.jpg'
 import Document from '../../assets/images/document.jpg'
+import MyPosts from '../../assets/images/my-posts.jpg'
 const projects = [
     {name: 'Gallery', src: Gallery, page: '/gallery'},
     {name: 'Authorization', src: Auth, page: '/auth'},
@@ -14,6 +15,7 @@ const projects = [
     {name: 'Posts', src: Posts, page: '/posts'},
     {name: 'Email message', src: Email, page: '/email'},
     {name: 'Documents', src: Document, page: '/document'},
+    {name: 'My Posts', src: MyPosts, page: '/myposts'},
 ]
 </script>
 <template>
@@ -35,7 +37,7 @@ const projects = [
                 </NuxtLink>
             </div>
         </div>
-        <NuxtPage />
+        <!-- <NuxtPage /> -->
     </div>
 </template>
 <style scoped lang="scss">

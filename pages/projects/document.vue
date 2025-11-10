@@ -1,8 +1,8 @@
-<script setup>
+<script setup lang="ts">
 import CompSelect from '~/components/CompSelect.vue'
 
-const dateInput = ref(null)
-const seriaInput = ref(null)
+const dateInput = ref("")
+const seriaInput = ref("")
 const tellInput = ref("+998 ")
 const dataCountry = ref({})
 const allDate = ref({})
@@ -25,14 +25,22 @@ const selectArr = [
     { name: "Xorazm viloyati", code: "XO" },
     { name: "Toshkent shahri", code: "TK" }
 ]
+
+interface Country {
+    name: string;
+    code: string;
+}
+
 const date = new Date()
 const currentYear = date.getFullYear()
 const currentMonth = date.getMonth() +1
 const currentDay = date.getDate()
 
 
-function formatDate(e) {
-    let value = e.target.value.replace(/\D/g, "")
+function formatDate(e: Event) {
+    const target = e.target as HTMLInputElement
+    if (!target) return
+    let value = target.value.replace(/\D/g, "")
     value = value.slice(0, 8)
 
     let day = value.slice(0, 2)
@@ -48,14 +56,17 @@ function formatDate(e) {
 
     if (month.length === 2) {
         let m = parseInt(month, 10)
+        let y = parseInt(year, 10)
         if (m < 1) m = 1
         if (m > 12) m = 12
-        if (year >= currentYear && m > currentMonth) m = currentMonth
+        if (y >= currentYear && m > currentMonth) m = currentMonth
         month = String(m).padStart(2, "0")
     }
 
     if (day.length === 2) {
         let d = parseInt(day, 10)
+        let m = parseInt(month, 10)
+        let y = parseInt(year, 10)
         let maxDays = 31
         if (month.length === 2) {
             const m = parseInt(month, 10)
@@ -65,7 +76,7 @@ function formatDate(e) {
 
         if (d < 1) d = 1
         if (d > maxDays) d = maxDays
-        if (year >= currentYear && month >= currentMonth && d > currentDay) d = currentDay
+        if (y >= currentYear && m >= currentMonth && d > currentDay) d = currentDay
         day = String(d).padStart(2, "0")
     }
     let formatted = day
@@ -75,8 +86,10 @@ function formatDate(e) {
         dateInput.value = formatted
     }, 1)
 }
-const formatSeria = (e) => {
-    let value = e.target.value.toUpperCase()
+const formatSeria = (e: Event) => {
+    const target = e.target as HTMLInputElement
+    if (!target) return
+    let value = target.value.toUpperCase()
     value = value.replace(/[^A-Z0-9]/g, "")
     let letters = value.replace(/[^A-Z]/g, "").slice(0, 2)
     let digits = ""
@@ -87,8 +100,10 @@ const formatSeria = (e) => {
         seriaInput.value = letters + (digits ? " " + digits : "")
     }, 1);
 }
-const formatTell = (e) => {
-    let value = e.target.value.replace(/\D/g, "")
+const formatTell = (e: Event) => {
+    const target = e.target as HTMLInputElement
+    if (!target) return
+    let value = target.value.replace(/\D/g, "")
     value = value.slice(3, 12)
     let countryCode = '+998'
     let tellCode = value.slice(0, 2)
@@ -105,7 +120,7 @@ const formatTell = (e) => {
         tellInput.value = countryCode + " " + tellNumber
     }, 1)
 } 
-const country = (e) => {
+const country = (e: Country) => {
     dataCountry.value = e
 }
 const all = () => {

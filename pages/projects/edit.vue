@@ -1,7 +1,7 @@
 <script setup>
 import AddImage from '../../assets/images/add-image.jpg'
 const { user, getProfile, updateUser} = useAuth()
-const createImage = ref(null)
+const createImage = ref("")
 const newData = ref({
     name: null,
     email: null,
@@ -9,7 +9,7 @@ const newData = ref({
     password: null
 })
 
-const handleImage = (e) => {
+const handleImage = () => {
     const file = e.target.files[0]
     newData.value.avatar = file
     const reader = new FileReader()
@@ -27,7 +27,7 @@ const handleSubmit = async () => {
         }
     })
     const res = await updateUser(data)
-    alert(res ? 'Профил обновлен' : 'Ошибка при обновлении профиля')
+    alert(res ? 'Профиль обновлен' : 'Ошибка при обновлении профиля')
     newData.value.name = user.value.name
     newData.value.email = user.value.email
     newData.value.avatar = null
