@@ -6,8 +6,12 @@ interface ImageItem {
     url: string,
     date: string
 }
+interface IResponse {
+    status: string
+    data: ImageItem[]
+}
 const images = ref<ImageItem[]>([])
-const apiUrl = "https://me-backend-o4yi.onrender.com/photos"
+const apiUrl = "https://me-backend-qr4x.onrender.com/photos"
 const pageLength = ref(1)
 const imageSize = ref(10)
 
@@ -18,8 +22,12 @@ const filterImages = computed(() => {
 })
 const getImages = async () => {
     try {
-        const res = await axios.get(apiUrl)
-        images.value = res.data
+        const { status, data } = await $fetch<IResponse>(apiUrl, {
+            method: 'GET'
+        })
+        if (status === 'success') {
+            images.value = data
+        }
     } catch (error) {
         console.log(error);
     }
